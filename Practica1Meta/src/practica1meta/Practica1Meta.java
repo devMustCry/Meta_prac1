@@ -5,6 +5,9 @@
  */
 package practica1meta;
 
+import java.util.Timer;
+import java.util.Vector;
+
 /**
  *
  * @author Ismael
@@ -16,14 +19,14 @@ public class Practica1Meta {
      */
     public static void main(String[] args) {
         int tama;
-    vector<vector <long int>> matrizF;
-    vector<vector <long int>> matrizD;
-    vector<int> permutOptima;
-    string nomFich = "";
+    Vector<Vector <Long>> matrizF;
+    Vector<Vector <Long>> matrizD;
+    Vector<Integer> permutOptima;
+    String nomFich = "";
     int semilla = 0;
     Timer tiempo;
     int opt, opt2, opt3, opt4;
-    long int cost = 0;
+    Long cost = 0L;
 
     //Cargamos los datos del fichero
     //cargaFichero(nomFich, tama, matrizF, matrizD);
