@@ -22,19 +22,51 @@ public class Practica1Meta {
     Vector<Vector <Long>> matrizF;
     Vector<Vector <Long>> matrizD;
     Vector<Integer> permutOptima;
-    String nomFich = "";
+    int i,j;
+    String nomFich = "data/ejemplo.txt";
+    int tamanio = 0;
     int semilla = 0;
     Timer tiempo;
     int opt, opt2, opt3, opt4;
     Long cost = 0L;
-
+    
+    ReadFile file = new ReadFile(nomFich);
+    String linea = "";
+    
+    while((linea=file.readLine())!=null && linea.length()!=0){
+        System.out.println("TAMANIO:" + linea);
+        tamanio = Integer.parseInt(linea);
+    }
+    
+    i=0;j=0;
+    while((linea=file.readLine())!=null && linea.length()!=0){
+        //System.out.println("PRIMER VECTOR:" + linea);
+        String[] asdf = linea.split(" ");
+        char[] ch=linea.toCharArray();    
+        
+        /*for(int h = 0; h < asdf.length; h++){
+            System.out.println("PRIMER VECTOR char:" + asdf[h]);
+        }*/
+        
+    }
+    
+    
+    while((linea=file.readLine())!=null && linea.length()!=0){
+        String[] asdf = linea.split(" ");
+        char[] ch=linea.toCharArray();    
+        
+        for(int h = 0; h < asdf.length; h++){
+            System.out.println("SEGUNDO VECTOR char:" + asdf[h]);
+        }
+    }
+ 
     //Cargamos los datos del fichero
     //cargaFichero(nomFich, tama, matrizF, matrizD);
 
     /********************************************************************/
     /******************************MENÚ *********************************/
     /********************************************************************/
-    do {
+    /*do {
         cout << "-------------------------------------" << endl;
         cout << "------- METAHEURÍSTICA 2018/19 ------" << endl;
         cout << "-------------------------------------" << endl;
@@ -440,7 +472,7 @@ public class Practica1Meta {
             }
         }
 
-    } while (opt != 0);
+    } while (opt != 0);*/
 
     }
     
