@@ -5,7 +5,7 @@
  */
 package practica1meta;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,10 +14,10 @@ import java.util.Vector;
 public class Greedy {
     
    
-    public void calcularPotencialesFlujoYDistancia(int tam, Vector<Long> vecPotFlujo,
-        Vector<Long> vecPotDistancia,
-        Vector<Vector<Long>> matrizF,
-        Vector<Vector<Long>> matrizD) {
+    public void calcularPotencialesFlujoYDistancia(int tam, ArrayList<Long> vecPotFlujo,
+        ArrayList<Long> vecPotDistancia,
+        ArrayList<ArrayList<Long>> matrizF,
+        ArrayList<ArrayList<Long>> matrizD) {
     
         Long sumFlujo, sumDistancia = 0L;
 
@@ -30,38 +30,44 @@ public class Greedy {
                     sumDistancia += matrizD.get(i).get(j);
                 }
             }
-            vecPotFlujo.set(i,sumFlujo);
-            vecPotDistancia.set(i, sumDistancia);
+            vecPotFlujo.add(i,sumFlujo);
+            vecPotDistancia.add(i, sumDistancia);
         }
     }
     
-    public void algoritmoGreedy(int tam, Vector<Vector<Long>> matFlujo,
-        Vector<Vector<Long>> matDistancia,
-        Vector<Integer> permutOptima) {
+    public void algoritmoGreedy(int tam, ArrayList<ArrayList<Long>> matFlujo,
+        ArrayList<ArrayList<Long>> matDistancia,
+        ArrayList<Integer> permutOptima) {
     
-        //Declaro los dos Vectores para calcular el potencial
-        Vector<Long> vecPotFlujo = new Vector();
-        Vector<Long> vecPotDistancia = new Vector();
-        //Vector de booleanos para marcaje
-        Vector<Boolean> banderasFluj = new Vector();
-        Vector<Boolean> banderasDist = new Vector();
+        //Declaro los dos ArrayListes para calcular el potencial
+        ArrayList<Long> vecPotFlujo = new ArrayList();
+        ArrayList<Long> vecPotDistancia = new ArrayList();
+        //ArrayList de booleanos para marcaje
+        ArrayList<Boolean> banderasFluj = new ArrayList();
+        ArrayList<Boolean> banderasDist = new ArrayList();
         Long mayor = -100L;
         Long menor = 99999999L;
         int posDis = 0;
         int posFlu = 0;
+        
+        
+        for(int i = 0; i < tam; i++){
+            banderasFluj.add(false);
+            banderasDist.add(false);
+        }
 
         //Calculamos los potenciales de cada uno
         calcularPotencialesFlujoYDistancia(tam, vecPotFlujo, vecPotDistancia, matFlujo, matDistancia);
 
 
 
-        // Recorro n veces los dos Vectores a la vez para ir comprobando en cada
+        // Recorro n veces los dos ArrayListes a la vez para ir comprobando en cada
         // vuelta quien es el mayor y el menor para así poder calcular la 
         // permutacion optima    
         for (int j = 0; j < tam; j++) {
             menor = 999999999L;
             mayor = -100L;
-            //Recorro para obtener el menor y el mayor de ambos Vectores
+            //Recorro para obtener el menor y el mayor de ambos ArrayListes
             for (int i = 0; i < tam; i++) {
                 //Obtengo el mayor de los flujos
                 if (vecPotFlujo.get(i) >= mayor && banderasFluj.get(i) != true) {
@@ -76,10 +82,10 @@ public class Greedy {
                 }
             }
 
-            banderasFluj.set(posFlu, true);
-            banderasDist.set(posDis, true);
+            banderasFluj.add(posFlu, true);
+            banderasDist.add(posDis, true);
             //situo en la posiciones
-            permutOptima.set(posFlu, posDis); //Selecciono la unidad Di y la coloco en Fi 
+            permutOptima.add(posFlu, posDis); //Selecciono la unidad Di y la coloco en Fi 
         }
 
 

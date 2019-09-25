@@ -5,6 +5,9 @@
  */
 package practica1meta;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Timer;
 import java.util.Vector;
 
@@ -19,11 +22,11 @@ public class Practica1Meta {
      */
     public static void main(String[] args) {
         int tama;
-    Vector<Vector <Long>> matrizF;
-    Vector<Vector <Long>> matrizD;
-    Vector<Integer> permutOptima;
-    int i,j;
-    String nomFich = "data/ejemplo.txt";
+    ArrayList<ArrayList <Long>> matrizF = new ArrayList<ArrayList<Long>>();
+    ArrayList<ArrayList <Long>> matrizD = new ArrayList<ArrayList<Long>>();
+    ArrayList<Integer> permutOptima = new ArrayList<Integer>();
+    int fila, columna;
+    String nomFich = "data/cnf07.dat";
     int tamanio = 0;
     int semilla = 0;
     Timer tiempo;
@@ -32,33 +35,105 @@ public class Practica1Meta {
     
     ReadFile file = new ReadFile(nomFich);
     String linea = "";
-    
-    while((linea=file.readLine())!=null && linea.length()!=0){
+    linea=file.readLine();
+    //while((linea=file.readLine())!=null && linea.length()!=0){
         System.out.println("TAMANIO:" + linea);
-        tamanio = Integer.parseInt(linea);
-    }
+        String[] caracter2 = linea.split(" ");
+        for(int i = 0; i< caracter2.length;i++){
+            if(!caracter2[i].equals("")){
+                tamanio = Integer.parseInt(caracter2[i]);
+                break;
+            }
+        }
+        
+    //}
     
-    i=0;j=0;
+    fila=0;
+    columna=0;
     while((linea=file.readLine())!=null && linea.length()!=0){
         //System.out.println("PRIMER VECTOR:" + linea);
-        String[] asdf = linea.split(" ");
-        char[] ch=linea.toCharArray();    
+        String[] caracter = linea.split(" ");
         
-        /*for(int h = 0; h < asdf.length; h++){
-            System.out.println("PRIMER VECTOR char:" + asdf[h]);
-        }*/
+        ArrayList<Long> vectorLectura = new ArrayList<Long>();
+        
+        for(int h = 0; h < caracter.length; h++){
+            if(!caracter[h].equals("")){
+                vectorLectura.add(Long.parseLong(caracter[h]));
+            }
+        }
+        
+        matrizF.add(vectorLectura);
+                
+    }
+    
+    while((linea=file.readLine())!=null && linea.length()!=0){
+        //System.out.println("PRIMER VECTOR:" + linea);
+        String[] caracter = linea.split(" ");
+        
+        ArrayList<Long> vectorLectura = new ArrayList<Long>();
+        
+        for(int h = 0; h < caracter.length; h++){
+            if(!caracter[h].equals("")){
+                vectorLectura.add(Long.parseLong(caracter[h]));
+            }
+        }
+        
+        matrizD.add(vectorLectura);
+                
+    }
+    
+    for(int i=0;i < matrizF.size() ; i++){
+        for(int j=0;j<matrizF.size(); j++){
+            System.out.print("MATRIZF: " + matrizF.get(i).get(j));
+        }
+        System.out.println();
         
     }
     
+    for(int i=0;i < matrizF.size() ; i++){
+        for(int j=0;j<matrizF.size(); j++){
+            System.out.print("MATRIZD: " + matrizD.get(i).get(j));
+        }
+        System.out.println();
+        
+    }
     
-    while((linea=file.readLine())!=null && linea.length()!=0){
+    /*for(int i=0;i<tamanio;i++){
+        permutOptima.add(0);
+    }
+    
+    Greedy greedy = new Greedy();
+    
+    greedy.algoritmoGreedy(tamanio, matrizF, matrizD, permutOptima);
+    
+    
+    System.out.println("La permutacion óptima es: ");
+    for (int i = 0; i < tamanio; i++) {
+        System.out.print(permutOptima.get(i) + 1 + " ");
+    }
+
+    System.out.println();
+
+    cost = Utils.calculoCoste(tamanio, matrizF, matrizD, permutOptima);
+    System.out.println("El coste del Greedy es: " + cost);
+    
+    /*for(int h = 0; h < tamanio; h++){
+        for(int a = 0; a < tamanio; a++){
+            System.out.print(" " + matrizD.get(h).get(a));
+        }
+        System.out.println();
+        
+    }*/
+    
+    
+    /*while((linea=file.readLine())!=null && linea.length()!=0){
         String[] asdf = linea.split(" ");
         char[] ch=linea.toCharArray();    
         
         for(int h = 0; h < asdf.length; h++){
             System.out.println("SEGUNDO VECTOR char:" + asdf[h]);
         }
-    }
+    }*/
  
     //Cargamos los datos del fichero
     //cargaFichero(nomFich, tama, matrizF, matrizD);

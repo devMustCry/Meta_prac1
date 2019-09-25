@@ -5,9 +5,9 @@
  */
 package practica1meta;
 
-import java.util.Vector;
-import static practica1meta.MetodosVarios.calculoCoste;
+import java.util.ArrayList;
 import static practica1meta.MetodosVarios.factorizacion;
+import static practica1meta.Utils.calculoCoste;
 
 
 /**
@@ -17,20 +17,20 @@ import static practica1meta.MetodosVarios.factorizacion;
 public class BusquedaLocal {
     
     
-    public void busquedaLocal(int tam, Vector<Vector<Long>> matFlujo,
-        Vector<Vector<Long>> matDistancia,
-        Vector<Integer> permutOptima) {
+    public void busquedaLocal(int tam, ArrayList<ArrayList<Long>> matFlujo,
+        ArrayList<ArrayList<Long>> matDistancia,
+        ArrayList<Integer> permutOptima) {
 
         //Declaro el costo actual
         Long costeActual = 0L;
         Long costeFactorizado = 0L;
         int evaluaciones = 0;
 
-        //Vector de enteros para controlar el Don't Look Bits inicializado a 0
-        Vector<Integer> dlb = new Vector();;
+        //ArrayList de enteros para controlar el Don't Look Bits inicializado a 0
+        ArrayList<Integer> dlb = new ArrayList();;
 
         //Calculamos el costo
-        costeActual = calculoCoste(tam, matFlujo, matDistancia, permutOptima);
+        costeActual = Utils.calculoCoste(tam, matFlujo, matDistancia, permutOptima);
 
         //bandera de mejora
         boolean mejoraGlobal = false;
@@ -43,7 +43,7 @@ public class BusquedaLocal {
 
                     for (int j = 0; j < tam; j++) {
                         if (i != j) {
-                            costeFactorizado = factorizacion(i, j, tam, costeActual, matFlujo, matDistancia, permutOptima);
+                            costeFactorizado = Utils.factorizacion(i, j, tam, costeActual, matFlujo, matDistancia, permutOptima);
 
                             if (costeFactorizado < costeActual) {
                                 int aux = permutOptima.get(i);

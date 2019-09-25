@@ -5,39 +5,34 @@
  */
 package practica1meta;
 
-import java.util.Vector;
+import java.util.ArrayList;
+
 
 /**
  *
  * @author Ismael
  */
-public class MetodosVarios {
+public class Utils {
     
-    
-    
-    
-    public static void generaPermutOptimaAleatoria(int tam, Vector<Integer> permutOptima, int semilla){
-        //https://stackoverflow.com/questions/196017/unique-non-repeating-random-numbers-in-o1
-
-        semilla = (int) Math.random()*1000;
+    public static long calculoCoste(int tam, ArrayList<ArrayList<Long>> matrizF, ArrayList<ArrayList<Long>> matrizD, 
+            ArrayList<Integer> permutOptima){
+        //Realizo el calculo del coste    
+        long coste = 0;
 
         for(int i = 0; i < tam; i++){
-            permutOptima.set(i, i);
+            for(int j = 0; j < tam; j++){
+                //Evitar sumar la diagonal principal (osea el punto (0,0), (1,1), (2,2), (3,3)
+                if(i != j){
+                    coste = coste + (matrizF.get(i).get(j) * matrizD.get(permutOptima.get(i)).get(permutOptima.get(j)));
+                }
+            }
         }
-
-        //Los mezclamos para que salgan diferentes cada vez
-        for(int j = tam - 1; j > 0; j--) {
-            int idx = (int)(Math.random() % (j + 1));
-            int aux = permutOptima.get(idx);
-            permutOptima.set(idx, permutOptima.get(j));
-            permutOptima.set(j, aux);        
-        }
-   
+        return coste;
     }
     
-    public static long factorizacion(int a, int b, int tam, Long costeActual, Vector<Vector<Long>> matrizF,
-                                                                    Vector<Vector<Long>> matrizD,
-                                                                    Vector<Integer> permutOptima){
+    public static long factorizacion(int a, int b, int tam, Long costeActual, ArrayList<ArrayList<Long>> matrizF,
+                                                                    ArrayList<ArrayList<Long>> matrizD,
+                                                                    ArrayList<Integer> permutOptima){
         
         Long result = 0L;
         

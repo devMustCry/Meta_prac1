@@ -5,9 +5,9 @@
  */
 package practica1meta;
 
-import java.util.Vector;
-import static practica1meta.MetodosVarios.calculoCoste;
+import java.util.ArrayList;
 import static practica1meta.MetodosVarios.factorizacion;
+import static practica1meta.Utils.calculoCoste;
 
 /**
  *
@@ -15,9 +15,9 @@ import static practica1meta.MetodosVarios.factorizacion;
  */
 public class EnfriamientoSimulado {
     
-    public void enfriamientoSimulado(int tam, Vector<Vector<Long>> matFlujo,
-        Vector<Vector<Long>> matDistancia,
-        Vector<Integer> permutOptima, String tipo) {
+    public void enfriamientoSimulado(int tam, ArrayList<ArrayList<Long>> matFlujo,
+        ArrayList<ArrayList<Long>> matDistancia,
+        ArrayList<Integer> permutOptima, String tipo) {
 
         //Variables Enfriamiento simulado
         double tempInicial;
@@ -30,11 +30,11 @@ public class EnfriamientoSimulado {
         Long costeFactorizado = 0L;
         int evaluaciones = 0;
 
-        //Vector de enteros para controlar el Don't Look Bits inicializado a 0
-        Vector<Integer> dlb = new Vector();
+        //ArrayList de enteros para controlar el Don't Look Bits inicializado a 0
+        ArrayList<Integer> dlb = new ArrayList();
 
         //Calculamos el costo
-        costeActual = calculoCoste(tam, matFlujo, matDistancia, permutOptima);
+        costeActual = Utils.calculoCoste(tam, matFlujo, matDistancia, permutOptima);
         mejorCoste = costeActual;
 
         //Inicializo las temperaturas
@@ -54,7 +54,7 @@ public class EnfriamientoSimulado {
                     for (int j = 0; j < tam; j++) {
                         if (i != j) {
                             //Calculo el nuevo coste intercambiando dos posiciones
-                            costeFactorizado = factorizacion(i, j, tam, costeActual, matFlujo, matDistancia, permutOptima);
+                            costeFactorizado = Utils.factorizacion(i, j, tam, costeActual, matFlujo, matDistancia, permutOptima);
 
                             //Calculo el diferencial de costes(si es negativo es porque mejora)
                             difCostes = costeFactorizado - costeActual;
