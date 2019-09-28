@@ -5,9 +5,11 @@
  */
 package practica1meta;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.Vector;
 
@@ -26,97 +28,149 @@ public class Practica1Meta {
     ArrayList<ArrayList <Long>> matrizD = new ArrayList<ArrayList<Long>>();
     ArrayList<Integer> permutOptima = new ArrayList<Integer>();
     int fila, columna;
-    String nomFich = "data/cnf07.dat";
+    String nomFich = "data/cnf01.dat";
     int tamanio = 0;
-    int semilla = 0;
+    int semilla = 78161758;
     Timer tiempo;
     int opt, opt2, opt3, opt4;
     Long cost = 0L;
     
-    ReadFile file = new ReadFile(nomFich);
-    String linea = "";
-    linea=file.readLine();
-    //while((linea=file.readLine())!=null && linea.length()!=0){
-        System.out.println("TAMANIO:" + linea);
-        String[] caracter2 = linea.split(" ");
-        for(int i = 0; i< caracter2.length;i++){
-            if(!caracter2[i].equals("")){
-                tamanio = Integer.parseInt(caracter2[i]);
-                break;
-            }
-        }
-        
-    //}
     
-    fila=0;
-    columna=0;
-    while((linea=file.readLine())!=null && linea.length()!=0){
-        //System.out.println("PRIMER VECTOR:" + linea);
-        String[] caracter = linea.split(" ");
-        
+    // Fichero del que queremos leer
+    File fichero = new File(nomFich);
+    Scanner s = null;
+
+     int ite = 0;
+    
+    try {
+    // Leemos el contenido del fichero
+    s = new Scanner(fichero);
+
+    // Leemos linea a linea el fichero
+    while (s.hasNextLine()) {
+        String linea = s.nextLine(); 	// Guardamos la linea en un String
+        linea = linea.trim();
+        String[] cortarString = linea.split(" ");
+
         ArrayList<Long> vectorLectura = new ArrayList<Long>();
-        
-        for(int h = 0; h < caracter.length; h++){
-            if(!caracter[h].equals("")){
-                vectorLectura.add(Long.parseLong(caracter[h]));
-            }
-        }
-        
-        matrizF.add(vectorLectura);
                 
-    }
-    
-    while((linea=file.readLine())!=null && linea.length()!=0){
-        //System.out.println("PRIMER VECTOR:" + linea);
-        String[] caracter = linea.split(" ");
-        
-        ArrayList<Long> vectorLectura = new ArrayList<Long>();
-        
-        for(int h = 0; h < caracter.length; h++){
-            if(!caracter[h].equals("")){
-                vectorLectura.add(Long.parseLong(caracter[h]));
+        if (ite == 0) {
+            tamanio = Integer.parseInt(linea.trim());
+            System.out.println("tamanio " +tamanio);
+        }else if(ite >= 2 && ite <= (tamanio + 1)){
+            for (int i = 0; i < cortarString.length; i++) {
+                if (!cortarString[i].equals("")) {
+                    vectorLectura.add(Long.parseLong(cortarString[i].trim()));                            
+                }
             }
+            matrizF.add(vectorLectura);
+        }else if(ite > (tamanio + 2)){
+            for (int i = 0; i < cortarString.length; i++) {
+                if (!cortarString[i].equals("")) {
+                    vectorLectura.add(Long.parseLong(cortarString[i].trim()));                            
+                }
+            }
+            matrizD.add(vectorLectura);
         }
-        
-        matrizD.add(vectorLectura);
-                
+        ite++;
+    }
+
+    } catch (Exception ex) {
+    System.out.println("Mensaje:" + ite );
+    } finally {
+    // Cerramos el fichero tanto si la lectura ha sido correcta o no
+    try {
+        if (s != null) {
+            s.close();
+        }
+    } catch (Exception ex2) {
+        System.out.println("Mensaje 2: " + ex2.getMessage());
+    }
     }
     
-    for(int i=0;i < matrizF.size() ; i++){
-        for(int j=0;j<matrizF.size(); j++){
-            System.out.print("MATRIZF: " + matrizF.get(i).get(j));
-        }
-        System.out.println();
-        
-    }
     
-    for(int i=0;i < matrizF.size() ; i++){
-        for(int j=0;j<matrizF.size(); j++){
-            System.out.print("MATRIZD: " + matrizD.get(i).get(j));
-        }
-        System.out.println();
-        
-    }
+    /*****************************************/
+    /*greddy*/
     
-    /*for(int i=0;i<tamanio;i++){
+//    for(int i=0;i<tamanio;i++){
+//        permutOptima.add(0);
+//    }
+//    
+//    Greedy greedy = new Greedy();
+//    
+//    greedy.algoritmoGreedy(tamanio, matrizF, matrizD, permutOptima);
+//    
+//    
+//    System.out.println("La permutacion óptima es: ");
+//    for (int i = 0; i < tamanio; i++) {
+//        System.out.print(permutOptima.get(i) + 1 + " ");
+//    }
+//
+//    System.out.println();
+//
+//    cost = Utils.calculoCoste(tamanio, matrizF, matrizD, permutOptima);
+//    System.out.println("El coste del Greedy es: " + cost);
+    
+    
+    
+    /******BL*******/
+//    for(int i=0;i<tamanio;i++){
+//        permutOptima.add(0);
+//    }
+//    
+//    //Genero una permutacon aleatoria dentro de un fichero .dat
+//    Utils.generaPermutOptimaAleatoria(tamanio, permutOptima, semilla);
+//
+//    System.out.println("Permutación aleatoria a partir de semilla :");
+//    for (int i = 0; i < tamanio; i++) {
+//        System.out.println(permutOptima.get(i)+1);
+//    }
+//
+//    BusquedaLocal bl = new BusquedaLocal();
+//
+//    //Calculamos el tiempo de ejecucion
+////    tiempo.start();
+//    bl.busquedaLocal(tamanio, matrizF, matrizD, permutOptima);
+////    tiempo.stop();
+//
+//    //Imprimo la permutación óptima
+//    System.out.println("La permutacion óptima es: ");
+//    for (int i = 0; i < tamanio; i++) {
+//        System.out.print(permutOptima.get(i) + 1 + " ");
+//    }
+//
+//    cost = Utils.calculoCoste(tamanio, matrizF, matrizD, permutOptima);
+//    System.out.println("El coste de BL es: " + cost);
+
+
+    /***********ENFRIAMIENTO SIMULADO***********/
+    
+    
+    /********************GEOMETRICO************************/
+    //permutOptima.resize(tama, 0);
+
+    //Genero una permutacon aleatoria dentro de un fichero .dat
+    for(int i=0;i<tamanio;i++){
         permutOptima.add(0);
     }
     
-    Greedy greedy = new Greedy();
-    
-    greedy.algoritmoGreedy(tamanio, matrizF, matrizD, permutOptima);
-    
-    
+    Utils.generaPermutOptimaAleatoria(tamanio, permutOptima, semilla);
+
+    //Calculamos el tiempo de ejecucion
+//    tiempo.start();
+    EnfriamientoSimulado enfriamiento = new EnfriamientoSimulado();
+    enfriamiento.enfriamientoSimulado(tamanio, matrizF, matrizD, permutOptima, "geometrico");
+//    tiempo.stop();
+
+    //Imprimo la permutación óptima
     System.out.println("La permutacion óptima es: ");
     for (int i = 0; i < tamanio; i++) {
         System.out.print(permutOptima.get(i) + 1 + " ");
     }
 
-    System.out.println();
-
     cost = Utils.calculoCoste(tamanio, matrizF, matrizD, permutOptima);
-    System.out.println("El coste del Greedy es: " + cost);
-    
+    System.out.println("El coste de ENFRIAMIENTO GEOMETRICO es: " + cost);
+
     /*for(int h = 0; h < tamanio; h++){
         for(int a = 0; a < tamanio; a++){
             System.out.print(" " + matrizD.get(h).get(a));

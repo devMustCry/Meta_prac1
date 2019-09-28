@@ -27,7 +27,11 @@ public class BusquedaLocal {
         int evaluaciones = 0;
 
         //ArrayList de enteros para controlar el Don't Look Bits inicializado a 0
-        ArrayList<Integer> dlb = new ArrayList();;
+        ArrayList<Integer> dlb = new ArrayList();
+        
+        for(int i=0;i<tam;i++){
+            dlb.add(0);
+        }
 
         //Calculamos el costo
         costeActual = Utils.calculoCoste(tam, matFlujo, matDistancia, permutOptima);
